@@ -42,12 +42,11 @@ public class DojoStreamTest {
     void mejorJugadorConNacionalidadFrancia() {
         List<Player> list = CsvUtilFile.getPlayers();
 
-        Optional<Player> mejorJugador = list.stream()
+        list.stream()
                 .filter(j -> j.getNational().equals("France"))
-                .max(Comparator.comparing(Player::getWinners));
-                // .reduce((jugador1, jugador2) -> jugador1.getWinners() >= jugador2.getWinners() ? jugador1 : jugador2);
-
-        System.out.println(mejorJugador.orElse(null));
+                .max(Comparator.comparing(Player::getWinners))
+                // .reduce((jugador1, jugador2) -> jugador1.getWinners() >= jugador2.getWinners() ? jugador1 : jugador2)
+                .ifPresent(System.out::println);
     }
 
     @Test
@@ -68,24 +67,19 @@ public class DojoStreamTest {
     @Test
     void clubConElMejorJugador() {
         List<Player> list = CsvUtilFile.getPlayers();
-        Optional<Player> mejorJugador = list.stream()
-                .max(Comparator.comparing(Player::getWinners));
-                // .reduce((jugador1, jugador2) -> jugador1.getWinners() >= jugador2.getWinners() ? jugador1 : jugador2);
-
-        System.out.println("Club: " + mejorJugador.get().getClub());
+        list.stream()
+                .max(Comparator.comparing(Player::getWinners))
+                // .reduce((jugador1, jugador2) -> jugador1.getWinners() >= jugador2.getWinners() ? jugador1 : jugador2)
+                .ifPresent(System.out::println);
     }
 
     @Test
     void ElMejorJugador() {
         List<Player> list = CsvUtilFile.getPlayers();
-        Optional<Player> mejorJugador = list.stream()
-                .max(Comparator.comparing(Player::getWinners));
-                // .reduce((jugador1, jugador2) -> jugador1.getWinners() >= jugador2.getWinners() ? jugador1 : jugador2);
-
-        System.out.println("Name: " + mejorJugador.get().getName()
-                + ", Winners:" + mejorJugador.get().getWinners()
-                + ", Club: " + mejorJugador.get().getClub()
-                + ", Nacionalidad: " + mejorJugador.get().getNational());
+        list.stream()
+                .max(Comparator.comparing(Player::getWinners))
+                // .reduce((jugador1, jugador2) -> jugador1.getWinners() >= jugador2.getWinners() ? jugador1 : jugador2)
+                .ifPresent(System.out::println);
     }
 
     @Test
