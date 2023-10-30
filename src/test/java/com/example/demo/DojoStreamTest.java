@@ -70,7 +70,9 @@ public class DojoStreamTest {
         list.stream()
                 .max(Comparator.comparing(Player::getWinners))
                 // .reduce((jugador1, jugador2) -> jugador1.getWinners() >= jugador2.getWinners() ? jugador1 : jugador2)
-                .ifPresent(System.out::println);
+                .ifPresent(j -> {
+                    System.out.println(j.getClub());
+                });
     }
 
     @Test
@@ -86,14 +88,13 @@ public class DojoStreamTest {
     void mejorJugadorSegunNacionalidad() {
         List<Player> list = CsvUtilFile.getPlayers();
 
-        Map<String, Optional<Player>> mejoresJugadoresPorNacionalidad = list.stream()
+        list.stream()
                 .collect(Collectors.groupingBy(Player::getNational,
-                        Collectors.maxBy(Comparator.comparing(Player::getWinners))));
-
-        mejoresJugadoresPorNacionalidad.forEach((nacionalidad, jugador) -> {
-            System.out.println("* Nacionalidad: " + nacionalidad + ", Jugador: " + jugador.get().getName() + ", Club: "
-                    + jugador.get().getClub());
-        });
+                        Collectors.maxBy(Comparator.comparing(Player::getWinners))))
+                .forEach((nacionalidad, jugador) -> {
+                    System.out.println(
+                            "* Nacionalidad: " + nacionalidad + ", Jugador: " + jugador.get().getName() + ", Club: "
+                                    + jugador.get().getClub());
+                });
     }
-
 }
